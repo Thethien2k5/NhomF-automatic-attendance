@@ -1,0 +1,34 @@
+
+        private void RecognizeAndRecordAttendance(Image<Bgr, Byte> image, Rectangle faceRect)
+        {
+            // Cắt và resize ảnh khuôn mặt
+            Image<Bgr, Byte> faceImage = image.Copy(faceRect).Resize(100, 100, Inter.Linear);
+            // Chuyển đổi ảnh thành mảng byte để so sánh
+            byte[] faceData = faceImage.ToJpegData();
+
+
+            using (var db = new FaceDetectionAppContext())
+            {
+                // Tìm học sinh có dữ liệu khuôn mặt trùng khớp
+                var student = db.Students.FirstOrDefault(s => s.FaceData.SequenceEqual(faceData));
+
+                if (student != null)
+                {
+                    // Nếu tìm thấy, tạo bản ghi điểm danh mới
+                    var attendanceRecord = new AttendanceRecord
+                    {
+                        StudentId = student.Id,
+                        AttendanceTime = DateTime.Now
+                    };
+                    // Lưu bản ghi vào database
+                    db.AttendanceRecords.Add(attendanceRecord);
+                    db.SaveChanges();
+
+                    MessageBox.Show($"{student.Name} đã điểm danh.");
+                }
+                else
+                {
+                    MessageBox.Show("Học sinh chưa được ghi nhận");
+                }
+            }
+        }

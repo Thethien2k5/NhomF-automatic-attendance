@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FaceDetectionApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+45656533f5a48684d766b8f9f4c2e2964dbb68ef")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b0f3b04a1a0694d2c8a73c3bfb35af4cf066e0b8")]
 [assembly: System.Reflection.AssemblyProductAttribute("FaceDetectionApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FaceDetectionApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
