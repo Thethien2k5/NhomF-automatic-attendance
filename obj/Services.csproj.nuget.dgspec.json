@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "E:\\CNPM\\Nhom_F\\tam\\NhomF-automatic-attendance\\FaceDetectionApp.csproj": {}
+    "E:\\CNPM\\Nhom_F\\tam\\NhomF-automatic-attendance\\Services.csproj": {}
   },
   "projects": {
-    "E:\\CNPM\\Nhom_F\\tam\\NhomF-automatic-attendance\\FaceDetectionApp.csproj": {
+    "E:\\CNPM\\Nhom_F\\tam\\NhomF-automatic-attendance\\Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\CNPM\\Nhom_F\\tam\\NhomF-automatic-attendance\\FaceDetectionApp.csproj",
-        "projectName": "FaceDetectionApp",
-        "projectPath": "E:\\CNPM\\Nhom_F\\tam\\NhomF-automatic-attendance\\FaceDetectionApp.csproj",
+        "projectUniqueName": "E:\\CNPM\\Nhom_F\\tam\\NhomF-automatic-attendance\\Services.csproj",
+        "projectName": "Services",
+        "projectPath": "E:\\CNPM\\Nhom_F\\tam\\NhomF-automatic-attendance\\Services.csproj",
         "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
         "outputPath": "E:\\CNPM\\Nhom_F\\tam\\NhomF-automatic-attendance\\obj\\",
         "projectStyle": "PackageReference",

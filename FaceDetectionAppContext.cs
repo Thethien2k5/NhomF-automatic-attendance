@@ -21,7 +21,7 @@ namespace FaceDetectionApp
         // Phương thức để thêm sinh viên mới vào cơ sở dữ liệu
         public void AddStudent(Student student)
         {
-            using (var cmd = new MySqlCommand("INSERT INTO test (TenHocSinh, data, LopCuaHocSinh) VALUES (@Name, @FaceData, @Class)", _connection))
+            using (var cmd = new MySqlCommand("INSERT INTO thongtinhocsinh (Name, FaceData, Class) VALUES (@Name, @FaceData, @Class)", _connection))
             {
                 cmd.Parameters.AddWithValue("@Name", student.Name);
                 cmd.Parameters.AddWithValue("@FaceData", student.FaceData);
@@ -35,17 +35,17 @@ namespace FaceDetectionApp
         {
             var students = new List<Student>();
 
-            using (var cmd = new MySqlCommand("SELECT * FROM test", _connection))
+            using (var cmd = new MySqlCommand("SELECT * FROM thongtinhocsinh", _connection))
             using (var reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
                 {
                     var student = new Student
                     {
-                        Id = reader.GetInt32("IDHocSinh"),
-                        Name = reader.GetString("TenHocSinh"),
-                        FaceData = (byte[])reader["data"],
-                        Class = reader.GetString("LopCuaHocSinh")
+                        Id = reader.GetInt32("ID"),
+                        Name = reader.GetString("Name"),
+                        FaceData = (byte[])reader["FaceData"],
+                        Class = reader.GetString("Class")
                     };
                     students.Add(student);
                 }
@@ -57,9 +57,9 @@ namespace FaceDetectionApp
         // Phương thức để ghi điểm danh
         public void AddAttendanceRecord(AttendanceRecord record)
         {
-            using (var cmd = new MySqlCommand("INSERT INTO AttendanceRecords (NameStudent, data, Status) VALUES (@NameStudent, @data, @Status)", _connection))
+            using (var cmd = new MySqlCommand("INSERT INTO thongtindiemdanh (StudentId, AttendanceTime, Status) VALUES (@StudentId, @AttendanceTime, @Status)", _connection))
             {
-                cmd.Parameters.AddWithValue("@StudentId", record.NameStudent);
+                cmd.Parameters.AddWithValue("@StudentId", record.StudentId);
                 cmd.Parameters.AddWithValue("@AttendanceTime", record.AttendanceTime);
                 cmd.Parameters.AddWithValue("@Status", record.Status);
                 cmd.ExecuteNonQuery();

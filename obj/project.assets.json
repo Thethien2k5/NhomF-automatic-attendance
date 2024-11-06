@@ -3960,11 +3960,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\CNPM\\Nhom_F\\FaceDetectionApp.csproj",
+      "projectUniqueName": "E:\\CNPM\\Nhom_F\\tam\\NhomF-automatic-attendance\\FaceDetectionApp.csproj",
       "projectName": "FaceDetectionApp",
-      "projectPath": "E:\\CNPM\\Nhom_F\\FaceDetectionApp.csproj",
+      "projectPath": "E:\\CNPM\\Nhom_F\\tam\\NhomF-automatic-attendance\\FaceDetectionApp.csproj",
       "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-      "outputPath": "E:\\CNPM\\Nhom_F\\obj\\",
+      "outputPath": "E:\\CNPM\\Nhom_F\\tam\\NhomF-automatic-attendance\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config"

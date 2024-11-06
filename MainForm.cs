@@ -11,9 +11,9 @@ using Emgu.CV.Structure;
 using Emgu.CV.CvEnum;
 using FaceDetectionApp.Models;
 //
-using AForge.Video;
 using AForge.Video.DirectShow;
-using ZXing;
+using System.Timers;
+
 
 
 namespace FaceDetectionApp
@@ -27,13 +27,17 @@ namespace FaceDetectionApp
         //biến theo dõi chế độ
         private bool isNewStudentMode = true;
 
+
+        private System.Timers.Timer attendanceTimer;
+        private bool isAttendanceActive = false;
+
         FilterInfoCollection filterInfoCollection;
 
 
         public MainForm()
         {
-            InitializeCamera();
-             InitializeComponent();
+            InitializeCamera();//Tạo camera
+            InitializeComponent();//Tạo giao diện
             filterInfoCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             foreach (FilterInfo filterInfo in filterInfoCollection)
             {
@@ -56,7 +60,6 @@ namespace FaceDetectionApp
                 MessageBox.Show("Lỗi không thể khởi tạo camera: " + ex.Message);
             }
         }
-
         //Xử lý khung hình từ cam
         private void ProcessFrame(object sender, EventArgs e)
         {
@@ -80,68 +83,6 @@ namespace FaceDetectionApp
             }
 
         }
-
-
-        // Phát hiện và vẽ khung màu đỏ quanh khuôn mặt, chuyển màu xanh lá khi nhận diện thành công
-        private void DetectFaces(Image<Bgr, Byte> image)
-        {
-            using (Image<Gray, Byte> grayFrame = image.Convert<Gray, Byte>())
-            {
-                Rectangle[] faces = _faceCascade.DetectMultiScale(grayFrame, 1.1, 10, Size.Empty);
-                foreach (var face in faces)
-                {
-                    // Mặc định vẽ khung đỏ xung quanh tất cả khuôn mặt được phát hiện
-                    image.Draw(face, new Bgr(Color.Red), 2);
-
-                    // Chỉ nhận diện khi đang ở chế độ điểm danh
-                    if (!isNewStudentMode)
-                    {
-                        if (RecognizeFace(image, face))
-                        {
-                            image.Draw(face, new Bgr(Color.Green), 2); // Đổi sang khung xanh lá nếu nhận diện thành công
-                        }
-                    }
-                }
-            }
-        }
-
-        private bool RecognizeFace(Image<Bgr, Byte> image, Rectangle faceRect)
-        {
-            // Resize ảnh khuôn mặt để so sánh với dữ liệu trong database
-            Image<Bgr, Byte> faceImage = image.Copy(faceRect).Resize(100, 100, Inter.Linear);
-            byte[] faceData = faceImage.ToJpegData();
-
-            using (var db = new FaceDetectionAppContext())
-            {
-                var students = db.GetStudents();
-
-                // Tìm sinh viên có dữ liệu khuôn mặt trùng khớp
-                var student = students.FirstOrDefault(s => s.FaceData.SequenceEqual(faceData));
-
-                if (student != null)
-                {
-                    var attendanceRecord = new AttendanceRecord
-                    {
-                        StudentId = student.Id,
-                        AttendanceTime = DateTime.Now,
-                        Status = true // Đánh dấu là có mặt
-                    };
-
-                    db.AddAttendanceRecord(attendanceRecord);
-                    lstAttendance.Items.Add($"{student.Name} - Có mặt tại {attendanceRecord.AttendanceTime}");
-                    return true;
-                }
-                else
-                {
-                    lstAttendance.Items.Add("Học sinh không được công nhận");
-                }
-            }
-            return false;
-        }
-
-
-
-
         //Vẻ khung xung quanh khuôn mặt    
         private void DetectAndMarkAttendance(Image<Bgr, Byte> image)
         {
@@ -156,39 +97,19 @@ namespace FaceDetectionApp
             }
         }
 
-        //chế độ điểm danh
-        private void RecognizeAndRecordAttendance(Image<Bgr, Byte> image, Rectangle faceRect)
+        //chuyển đổi chế độ đăng ký
+        private void SwitchToNewStudentMode(object sender, EventArgs e)
         {
-            Image<Bgr, Byte> faceImage = image.Copy(faceRect).Resize(100, 100, Inter.Linear);
-            byte[] faceData = faceImage.ToJpegData();
-
-            using (var db = new FaceDetectionAppContext())
-            {
-                var students = db.GetStudents();
-
-                // Tìm sinh viên có dữ liệu khuôn mặt trùng khớp
-                var student = students.FirstOrDefault(s => s.FaceData.SequenceEqual(faceData));
-
-                if (student != null)
-                {
-                    var attendanceRecord = new AttendanceRecord
-                    {
-                        StudentId = student.Id,
-                        AttendanceTime = DateTime.Now,
-                        Status = true // Đánh dấu là có mặt
-                    };
-
-                    db.AddAttendanceRecord(attendanceRecord);
-                    lstAttendance.Items.Add($"{student.Name} - Có mặt tại {attendanceRecord.AttendanceTime}");
-                }
-                else
-                {
-                    lstAttendance.Items.Add("Học sinh không được công nhận");
-                }
-            }
+            isNewStudentMode = true;
+            txtStudentName.Visible = true;
+            txtStudentClass.Visible = true;
+            btnCapture.Visible = true;
+            //
+            dgvAttendance.Visible = false;
+            btnStartAttendance.Visible = false;
+            btnEndAttendance.Visible = false;
+            MessageBox.Show("chuyển sang chế độ Đăng ký học sinh mới.");
         }
-
-
         //Chế độ đăng ký
         private void CaptureNewStudentFace(object sender, EventArgs e)
         {
@@ -243,16 +164,8 @@ namespace FaceDetectionApp
                 MessageBox.Show($"Sinh viên mới {studentName} đã đăng ký thành công.");
             }
         }
-        //chuyển đổi chế độ đăng ký
-        private void SwitchToNewStudentMode(object sender, EventArgs e)
-        {
-            isNewStudentMode = true;
-            txtStudentName.Visible = true;
-            txtStudentClass.Visible = true;
-            btnCapture.Visible = true;
-            lstAttendance.Visible = false;
-            MessageBox.Show("chuyển sang chế độ Đăng ký học sinh mới.");
-        }
+
+
 
         // Đã chuyển sang chế độ Điểm danh.
         private void SwitchToAttendanceMode(object sender, EventArgs e)
@@ -261,17 +174,144 @@ namespace FaceDetectionApp
             txtStudentName.Visible = false;
             txtStudentClass.Visible = false;
             btnCapture.Visible = false;
-            lstAttendance.Visible = true;
-            lstAttendance.Items.Clear();
+            //
+            dgvAttendance.Visible = true;
+            btnStartAttendance.Visible = true;
+            btnEndAttendance.Visible = true;
+            // dgvAttendance.Items.Clear();
             MessageBox.Show("Đã chuyển sang chế độ Điểm danh.");
+        }
+        //chế độ điểm danh
+        private void RecognizeAndRecordAttendance(Image<Bgr, Byte> image, Rectangle faceRect)
+        {
+            Image<Bgr, Byte> faceImage = image.Copy(faceRect).Resize(100, 100, Inter.Linear);
+            byte[] faceData = faceImage.ToJpegData();
+
+            using (var db = new FaceDetectionAppContext())
+            {
+                var students = db.GetStudents();
+
+                // Tìm sinh viên có dữ liệu khuôn mặt trùng khớp
+                var student = students.FirstOrDefault(s => s.FaceData.SequenceEqual(faceData));
+
+                // if (student != null)
+                // {
+                //     var attendanceRecord = new AttendanceRecord
+                //     {
+                //         StudentId = student.Id,
+                //         AttendanceTime = DateTime.Now,
+                //         Status = true // Đánh dấu là có mặt
+                //     };
+
+                //     db.AddAttendanceRecord(attendanceRecord);
+                //     lstAttendance.Items.Add($"{student.Name} - Có mặt tại {attendanceRecord.AttendanceTime}");
+                // }
+                // else
+                // {
+                //     lstAttendance.Items.Add("Học sinh không được công nhận");
+                // }
+            }
+        }
+        // Phát hiện và vẽ khung màu đỏ quanh khuôn mặt, chuyển màu xanh lá khi nhận diện thành công
+        private void DetectFaces(Image<Bgr, Byte> image)
+        {
+            using (Image<Gray, Byte> grayFrame = image.Convert<Gray, Byte>())
+            {
+                Rectangle[] faces = _faceCascade.DetectMultiScale(grayFrame, 1.1, 10, Size.Empty);
+                foreach (var face in faces)
+                {
+                    // Mặc định vẽ khung đỏ xung quanh tất cả khuôn mặt được phát hiện
+                    image.Draw(face, new Bgr(Color.Red), 2);
+
+                    // Chỉ nhận diện khi đang ở chế độ điểm danh
+                    // if (!isNewStudentMode)
+                    // {
+                    //     if (RecognizeFace(image, face))
+                    //     {
+                    //         image.Draw(face, new Bgr(Color.Green), 2); // Đổi sang khung xanh lá nếu nhận diện thành công
+                    //     }
+                    // }
+                }
+            }
+        }
+        //Đối chiếu kết quả với database
+        // private bool RecognizeFace(Image<Bgr, Byte> image, Rectangle faceRect)
+        // {
+        //     // Resize ảnh khuôn mặt để so sánh với dữ liệu trong database
+        //     Image<Bgr, Byte> faceImage = image.Copy(faceRect).Resize(100, 100, Inter.Linear);
+        //     byte[] faceData = faceImage.ToJpegData();
+
+        //     using (var db = new FaceDetectionAppContext())
+        //     {
+        //         var students = db.GetStudents();
+
+        //         // Tìm sinh viên có dữ liệu khuôn mặt trùng khớp
+        //         var student = students.FirstOrDefault(s => s.FaceData.SequenceEqual(faceData));
+
+        //         if (student != null)
+        //         {
+        //             var attendanceRecord = new AttendanceRecord
+        //             {
+        //                 StudentId = student.Id,
+        //                 AttendanceTime = DateTime.Now,
+        //                 Status = true // Đánh dấu là có mặt
+        //             };
+
+        //             db.AddAttendanceRecord(attendanceRecord);
+        //             lstAttendance.Items.Add($"{student.Name} - Có mặt tại {attendanceRecord.AttendanceTime}");
+        //             return true;
+        //         }
+        //         else
+        //         {
+        //             lstAttendance.Items.Add("Học sinh không được công nhận");
+        //         }
+        //     }
+        //     return false;
+        // }
+
+        private void StartAttendance(object sender, EventArgs e)
+        {
+            isAttendanceActive = true;
+            LoadStudentsToAttendanceGrid();
+            attendanceTimer.Start();
+        }
+
+        private void EndAttendance(object sender, EventArgs e)
+        {
+            isAttendanceActive = false;
+            attendanceTimer.Stop();
+            MarkUnattendedStudents();
+        }
+
+        private void LoadStudentsToAttendanceGrid()
+        {
+            dgvAttendance.Rows.Clear();
+
+            using (var db = new FaceDetectionAppContext())
+            {
+                var students = db.GetStudents();
+                foreach (var student in students)
+                {
+                    dgvAttendance.Rows.Add(student.Name, "X"); // Mặc định là "X" (chưa điểm danh)
+                }
+            }
+        }
+
+        private void MarkUnattendedStudents()
+        {
+            foreach (DataGridViewRow row in dgvAttendance.Rows)
+            {
+                if (row.Cells["AttendanceStatus"].Value.ToString() != "✔")
+                {
+                    row.Cells["AttendanceStatus"].Value = "X"; // Đánh dấu X cho những học sinh chưa điểm danh
+                }
+            }
         }
 
 
 
-
-
-
- private void cbCamera_SelectedIndexChanged(object sender, EventArgs e)
+        //Cho phép chọn loại camera
+        private void cbCamera_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_capture != null)
             {
@@ -279,9 +319,6 @@ namespace FaceDetectionApp
             }
             _capture = new VideoCapture(filterInfoCollection[cbCamera.SelectedIndex].MonikerString);
         }
-
-
-
 
         //  tự động gọi khi form được đóng
         protected override void OnClosed(EventArgs e)
@@ -295,25 +332,40 @@ namespace FaceDetectionApp
     {
         //Tạo biến
         private System.Windows.Forms.PictureBox pictureBox;
+        //
         private System.Windows.Forms.TextBox txtStudentName;
         private System.Windows.Forms.TextBox txtStudentClass;
         private System.Windows.Forms.Button btnNewStudentMode;
+        //
         private System.Windows.Forms.Button btnAttendanceMode;
         private System.Windows.Forms.Button btnCapture;
-        private System.Windows.Forms.ListBox lstAttendance;
+        // private System.Windows.Forms.ListBox lstAttendance;
+
+        private DataGridView dgvAttendance;
+        private Button btnStartAttendance;
+        private Button btnEndAttendance;
+
+        //
         private System.Windows.Forms.ComboBox cbCamera;
 
 
         //Tạo form giao diện
         private void InitializeComponent()
         {
+            //Hộp Ảnh
             this.pictureBox = new System.Windows.Forms.PictureBox();
+            //Chế độ thêm học sinh mới
             this.txtStudentName = new System.Windows.Forms.TextBox();
             this.txtStudentClass = new System.Windows.Forms.TextBox();
             this.btnNewStudentMode = new System.Windows.Forms.Button();
-            this.btnAttendanceMode = new System.Windows.Forms.Button();
             this.btnCapture = new System.Windows.Forms.Button();
-            this.lstAttendance = new System.Windows.Forms.ListBox();
+            //Chế độ điểm danh
+            this.btnAttendanceMode = new System.Windows.Forms.Button();
+            // this.lstAttendance = new System.Windows.Forms.ListBox();
+            this.dgvAttendance = new System.Windows.Forms.DataGridView();
+            this.btnStartAttendance = new System.Windows.Forms.Button();
+            this.btnEndAttendance = new System.Windows.Forms.Button();
+            //Tuy chọn camerra
             this.cbCamera = new System.Windows.Forms.ComboBox();
 
 
@@ -329,6 +381,14 @@ namespace FaceDetectionApp
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
             // 
+            // btnNewStudentMode : btnChế độ sinh viên mới
+            // 
+            this.btnNewStudentMode.Location = new System.Drawing.Point(450, 10);
+            this.btnNewStudentMode.Name = "btnNewStudentMode";
+            this.btnNewStudentMode.Size = new System.Drawing.Size(150, 40);
+            this.btnNewStudentMode.Text = "Thêm sinh viên mới";
+            this.btnNewStudentMode.BackColor = Color.FromArgb(59, 218, 216);
+            this.btnNewStudentMode.Click += new EventHandler(SwitchToNewStudentMode);
             // txtStudentName : txtTên học sinh
             // 
             this.txtStudentName.Location = new System.Drawing.Point(490, 55);
@@ -336,8 +396,6 @@ namespace FaceDetectionApp
             this.txtStudentName.Size = new System.Drawing.Size(200, 20);
             this.txtStudentName.PlaceholderText = "Tên học sinh mới";
             this.txtStudentName.Visible = false;
-
-            // 
             // txtStudentClass : txtLớp học sinh
             // 
             this.txtStudentClass.Location = new System.Drawing.Point(490, 90);
@@ -345,29 +403,8 @@ namespace FaceDetectionApp
             this.txtStudentClass.Size = new System.Drawing.Size(200, 20);
             this.txtStudentClass.PlaceholderText = "Lớp";
             this.txtStudentClass.Visible = false;
-
-            // 
-            // btnNewStudentMode : btnChế độ sinh viên mới
-            // 
-            this.btnNewStudentMode.Location = new System.Drawing.Point(450, 10);
-            this.btnNewStudentMode.Name = "btnNewStudentMode";
-            this.btnNewStudentMode.Size = new System.Drawing.Size(150, 40);
-            this.btnNewStudentMode.Text = "Thêm sinh viên mới";
-            //
-            this.btnNewStudentMode.BackColor = Color.FromArgb(59, 218, 216);
-            this.btnNewStudentMode.Click += new EventHandler(SwitchToNewStudentMode);
-            // 
-            // btnAttendanceMode : btnChế độ điểm danh
-            // 
-            this.btnAttendanceMode.Location = new System.Drawing.Point(600, 10);
-            this.btnAttendanceMode.Name = "btnAttendanceMode";
-            this.btnAttendanceMode.Size = new System.Drawing.Size(150, 40);
-            this.btnAttendanceMode.Text = "Tự động điểm danh";
-            //
-            this.btnAttendanceMode.BackColor = Color.FromArgb(59, 218, 216);
-            this.btnAttendanceMode.Click += new EventHandler(SwitchToAttendanceMode);
-
             // btnCapture : btnChụp
+            //
             this.btnCapture.Location = new System.Drawing.Point(490, 220);
             this.btnCapture.Name = "btnCapture";
             this.btnCapture.Size = new System.Drawing.Size(200, 30);
@@ -376,13 +413,46 @@ namespace FaceDetectionApp
             this.btnCapture.Visible = false;
             this.btnCapture.Click += new EventHandler(CaptureNewStudentFace);
 
-            // lstAttendance : lstĐiểm danh
-            this.lstAttendance.Location = new System.Drawing.Point(450, 50);
-            this.lstAttendance.Name = "lstAttendance";
-            this.lstAttendance.Size = new System.Drawing.Size(300, 400);
-            this.lstAttendance.Visible = false;
+            // 
+            // btnAttendanceMode : btnChế độ điểm danh
+            // 
+            this.btnAttendanceMode.Location = new System.Drawing.Point(600, 10);
+            this.btnAttendanceMode.Name = "btnAttendanceMode";
+            this.btnAttendanceMode.Size = new System.Drawing.Size(150, 40);
+            this.btnAttendanceMode.Text = "Tự động điểm danh";
+            this.btnAttendanceMode.BackColor = Color.FromArgb(59, 218, 216);
+            this.btnAttendanceMode.Click += new EventHandler(SwitchToAttendanceMode);
 
-            //
+            // lstAttendance : lstĐiểm danh Bảng
+            // this.lstAttendance.Location = new System.Drawing.Point(450, 50);
+            // this.lstAttendance.Name = "lstAttendance";
+            // this.lstAttendance.Size = new System.Drawing.Size(300, 400);
+            // this.lstAttendance.Visible = false;
+            // Tạo bảng danh sách điểm danh
+            this.dgvAttendance = new DataGridView();
+            this.dgvAttendance.Location = new System.Drawing.Point(450, 50);
+            this.dgvAttendance.Size = new System.Drawing.Size(300, 400);
+            this.dgvAttendance.Columns.Add("StudentName", "Tên học sinh");
+            this.dgvAttendance.Columns.Add("AttendanceStatus", "Trạng thái");
+            this.dgvAttendance.Visible = false;
+            // Tạo nút bắt đầu điểm danh
+            this.btnStartAttendance = new Button();
+            this.btnStartAttendance.Location = new System.Drawing.Point(450, 500);
+            this.btnStartAttendance.Size = new System.Drawing.Size(150, 40);
+            this.btnStartAttendance.Text = "Bắt đầu điểm danh";
+            this.btnStartAttendance.Visible = false;
+            this.btnStartAttendance.Click += new EventHandler(StartAttendance);
+
+            // Tạo nút kết thúc điểm danh
+            this.btnEndAttendance = new Button();
+            this.btnEndAttendance.Location = new System.Drawing.Point(600, 500);
+            this.btnEndAttendance.Size = new System.Drawing.Size(150, 40);
+            this.btnEndAttendance.Text = "Kết thúc điểm danh";
+            this.btnEndAttendance.Visible = false;
+            this.btnEndAttendance.Click += new EventHandler(EndAttendance);
+
+
+            //tuy chọn camera
             this.cbCamera.Location = new System.Drawing.Point(90, 430);
             this.cbCamera.Name = "cbCamera";
             this.cbCamera.Size = new System.Drawing.Size(238, 24);
@@ -391,12 +461,18 @@ namespace FaceDetectionApp
             // 
             this.ClientSize = new System.Drawing.Size(800, 600);
             this.Controls.Add(this.pictureBox);
+            //
             this.Controls.Add(this.txtStudentName);
             this.Controls.Add(this.txtStudentClass);
             this.Controls.Add(this.btnNewStudentMode);
+            //
             this.Controls.Add(this.btnAttendanceMode);
             this.Controls.Add(this.btnCapture);
-            this.Controls.Add(this.lstAttendance);
+            // this.Controls.Add(this.lstAttendance);
+            this.Controls.Add(dgvAttendance);
+            this.Controls.Add(btnStartAttendance);
+            this.Controls.Add(btnEndAttendance);
+            //
             this.Controls.Add(this.cbCamera);
             this.Name = "MainForm";
             this.Text = "Nhận diện khuôn mặt - Tự động điểm danh";
