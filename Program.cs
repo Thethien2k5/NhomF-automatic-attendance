@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace FaceDetectionApp
+namespace AdminManagement
 {
     static class Program
     {
@@ -11,7 +11,7 @@ namespace FaceDetectionApp
         {
             Application.EnableVisualStyles();// Bật tính năng Visual Styles cho phép ứng dụng sử dụng các theme giao diện của hệ điều hành
             Application.SetCompatibleTextRenderingDefault(false);//Tắt tính năng tương thích hiển thị văn bản mặc định
-            Application.Run(new MainForm());
+            Application.Run(new MainFormAdmin());
         }
     }
 }

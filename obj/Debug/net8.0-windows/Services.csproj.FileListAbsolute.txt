@@ -1,6 +1,0 @@
-E:\CNPM\Nhom_F\tam\NhomF-automatic-attendance\obj\Debug\net8.0-windows\Services.csproj.AssemblyReference.cache
-E:\CNPM\Nhom_F\tam\NhomF-automatic-attendance\obj\Debug\net8.0-windows\Services.GeneratedMSBuildEditorConfig.editorconfig
-E:\CNPM\Nhom_F\tam\NhomF-automatic-attendance\obj\Debug\net8.0-windows\Services.AssemblyInfoInputs.cache
-E:\CNPM\Nhom_F\tam\NhomF-automatic-attendance\obj\Debug\net8.0-windows\Services.AssemblyInfo.cs
-E:\CNPM\Nhom_F\tam\NhomF-automatic-attendance\obj\Debug\net8.0-windows\Services.csproj.CoreCompileInputs.cache
-E:\CNPM\Nhom_F\tam\NhomF-automatic-attendance\obj\Debug\net8.0-windows\Services.sourcelink.json
