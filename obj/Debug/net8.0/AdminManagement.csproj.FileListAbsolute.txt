@@ -1,5 +1,0 @@
-E:\CNPM\Nhom_F\Services\AdminManagement\obj\Debug\net8.0\AdminManagement.GeneratedMSBuildEditorConfig.editorconfig
-E:\CNPM\Nhom_F\Services\AdminManagement\obj\Debug\net8.0\AdminManagement.AssemblyInfoInputs.cache
-E:\CNPM\Nhom_F\Services\AdminManagement\obj\Debug\net8.0\AdminManagement.AssemblyInfo.cs
-E:\CNPM\Nhom_F\Services\AdminManagement\obj\Debug\net8.0\AdminManagement.csproj.CoreCompileInputs.cache
-E:\CNPM\Nhom_F\Services\AdminManagement\obj\Debug\net8.0\AdminManagement.sourcelink.json
