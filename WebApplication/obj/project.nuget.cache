@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+/s/H56CHaE=",
+  "dgSpecHash": "H5wRmkE4hJ8=",
   "success": true,
-  "projectFilePath": "E:\\CNPM\\test\\NhomF-automatic-attendance\\WebApplication\\WebApplication.csproj",
+  "projectFilePath": "E:\\CNPM\\test\\WebApplication\\WebApplication.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ASUS\\.nuget\\packages\\bouncycastle\\1.8.9\\bouncycastle.1.8.9.nupkg.sha512",
     "C:\\Users\\ASUS\\.nuget\\packages\\bouncycastle.cryptography\\2.3.1\\bouncycastle.cryptography.2.3.1.nupkg.sha512",

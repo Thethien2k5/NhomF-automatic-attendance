@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net8.0-windows7.0": {
+    "net8.0": {
       "BouncyCastle/1.8.9": {
         "type": "package",
         "compile": {
@@ -482,6 +482,16 @@
         },
         "runtime": {
           "lib/net8.0/ZstdSharp.dll": {}
+        }
+      },
+      "DTO/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/DTO.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DTO.dll": {}
         }
       }
     }
@@ -1623,11 +1633,17 @@
         "zstdsharp.port.0.8.0.nupkg.sha512",
         "zstdsharp.port.nuspec"
       ]
+    },
+    "DTO/1.0.0": {
+      "type": "project",
+      "path": "../DTO/DTO.csproj",
+      "msbuildProject": "../DTO/DTO.csproj"
     }
   },
   "projectFileDependencyGroups": {
-    "net8.0-windows7.0": [
+    "net8.0": [
       "BouncyCastle >= 1.8.9",
+      "DTO >= 1.0.0",
       "MySql.Data >= 9.1.0"
     ]
   },
@@ -1637,25 +1653,29 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\CNPM\\test\\NhomF-automatic-attendance\\Repository\\Repository.csproj",
+      "projectUniqueName": "E:\\CNPM\\test\\Repository\\Repository.csproj",
       "projectName": "Repository",
-      "projectPath": "E:\\CNPM\\test\\NhomF-automatic-attendance\\Repository\\Repository.csproj",
+      "projectPath": "E:\\CNPM\\test\\Repository\\Repository.csproj",
       "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-      "outputPath": "E:\\CNPM\\test\\NhomF-automatic-attendance\\Repository\\obj\\",
+      "outputPath": "E:\\CNPM\\test\\Repository\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
-        "net8.0-windows"
+        "net8.0"
       ],
       "sources": {
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net8.0-windows7.0": {
-          "targetAlias": "net8.0-windows",
-          "projectReferences": {}
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "projectReferences": {
+            "E:\\CNPM\\test\\DTO\\DTO.csproj": {
+              "projectPath": "E:\\CNPM\\test\\DTO\\DTO.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -1670,8 +1690,8 @@
       }
     },
     "frameworks": {
-      "net8.0-windows7.0": {
-        "targetAlias": "net8.0-windows",
+      "net8.0": {
+        "targetAlias": "net8.0",
         "dependencies": {
           "BouncyCastle": {
             "target": "Package",
@@ -1696,9 +1716,6 @@
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
-          },
-          "Microsoft.WindowsDesktop.App.WindowsForms": {
-            "privateAssets": "none"
           }
         },
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
@@ -1713,7 +1730,7 @@
       "message": "Package 'BouncyCastle' 1.8.9 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-8xfc-gm6g-vgpv",
       "libraryId": "BouncyCastle",
       "targetGraphs": [
-        "net8.0-windows7.0"
+        "net8.0"
       ]
     },
     {
@@ -1723,7 +1740,7 @@
       "message": "Package 'BouncyCastle' 1.8.9 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-m44j-cfrm-g8qc",
       "libraryId": "BouncyCastle",
       "targetGraphs": [
-        "net8.0-windows7.0"
+        "net8.0"
       ]
     },
     {
@@ -1733,17 +1750,17 @@
       "message": "Package 'BouncyCastle' 1.8.9 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-v435-xc8x-wvr9",
       "libraryId": "BouncyCastle",
       "targetGraphs": [
-        "net8.0-windows7.0"
+        "net8.0"
       ]
     },
     {
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'BouncyCastle 1.8.9' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0-windows7.0'. This package may not be fully compatible with your project.",
+      "message": "Package 'BouncyCastle 1.8.9' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
       "libraryId": "BouncyCastle",
       "targetGraphs": [
-        "net8.0-windows7.0"
+        "net8.0"
       ]
     }
   ]

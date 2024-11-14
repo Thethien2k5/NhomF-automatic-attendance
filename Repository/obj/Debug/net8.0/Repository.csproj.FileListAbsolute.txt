@@ -1,0 +1,15 @@
+E:\CNPM\test\Repository\bin\Debug\net8.0\Repository.deps.json
+E:\CNPM\test\Repository\bin\Debug\net8.0\Repository.dll
+E:\CNPM\test\Repository\bin\Debug\net8.0\Repository.pdb
+E:\CNPM\test\Repository\obj\Debug\net8.0\Repository.csproj.AssemblyReference.cache
+E:\CNPM\test\Repository\obj\Debug\net8.0\Repository.GeneratedMSBuildEditorConfig.editorconfig
+E:\CNPM\test\Repository\obj\Debug\net8.0\Repository.AssemblyInfoInputs.cache
+E:\CNPM\test\Repository\obj\Debug\net8.0\Repository.AssemblyInfo.cs
+E:\CNPM\test\Repository\obj\Debug\net8.0\Repository.csproj.CoreCompileInputs.cache
+E:\CNPM\test\Repository\obj\Debug\net8.0\Repository.dll
+E:\CNPM\test\Repository\obj\Debug\net8.0\refint\Repository.dll
+E:\CNPM\test\Repository\obj\Debug\net8.0\Repository.pdb
+E:\CNPM\test\Repository\obj\Debug\net8.0\ref\Repository.dll
+E:\CNPM\test\Repository\obj\Debug\net8.0\Repository.csproj.Up2Date
+E:\CNPM\test\Repository\bin\Debug\net8.0\DTO.dll
+E:\CNPM\test\Repository\bin\Debug\net8.0\DTO.pdb
