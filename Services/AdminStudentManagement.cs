@@ -39,22 +39,55 @@ namespace AdminManagement.Services
         {
             using (var db = new DatabaseConnection())
             {
-                db.AddStudent(student);
+                try
+                {
+                    db.AddStudent(student);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Lỗi AdminAddStudent: " + ex.Message);
+                }
             }
         }
         //Kiểm tra học sinh
         public bool AdminCheckStudent(int studentId)
         {
             var db = new DatabaseConnection();
-            if(db.IsStudentIdExists(studentId)){
+            if (db.IsStudentIdExists(studentId))
+            {
                 return true;
             }
             return false;
         }
         //Xoa hoc sinh
-        public void AdminDeleteStudent(int studentId){
-            var db = new DatabaseConnection();
-            db.DeleteStudent(studentId);
+        public void AdminDeleteStudent(int studentId)
+        {
+            try
+            {
+                var db = new DatabaseConnection();
+                db.DeleteStudent(studentId);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Lỗi AdminDeleteStudent: " + ex.Message);
+            }
+
+        }
+        //lấy lớp
+        public List<ClassStudent> AdminManagementGetClass()
+        {
+            List<ClassStudent> ClassStudents = new List<ClassStudent>();
+            using (var db = new DatabaseConnection())
+            {
+                var ClassList = db.GetClass();
+                ClassStudents.Clear();
+                foreach (var _ in ClassList)
+                {
+                    ClassStudents.Add(_);
+                }
+            }
+            return ClassStudents;
         }
     }
 }

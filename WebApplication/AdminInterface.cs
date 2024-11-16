@@ -13,6 +13,8 @@ namespace AdminManagement.WebApplication
         public MainFormAdmin()
         {
             InitializeComponent();
+            LoadStudentList();
+            InitializeClassList();
         }
         // Cập nhật kích thước của bảng khi form thay đổi kích thước
         private void MainFormAdmin_Resize(object? sender, EventArgs e)
@@ -26,7 +28,7 @@ namespace AdminManagement.WebApplication
         private void TableStudents_CellEndEdit(object? sender, DataGridViewCellEventArgs e)
         {
             // Tắt sự kiện tạm thời để tránh gọi lại sự kiện khi thay đổi ô
-            TableStudents.CellEndEdit -= TableStudents_CellEndEdit;
+            // TableStudents.CellEndEdit -= TableStudents_CellEndEdit;
 
             var adminService = new MainAdmin();
             var check = false;
@@ -82,13 +84,76 @@ namespace AdminManagement.WebApplication
             // Cài đặt chế độ tự động điều chỉnh độ rộng cột
             TableStudents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
+        //Lọc theo lớp
+        private void InitializeClassList()
+        {
+            ClassList.Items.Clear();
+            // Thêm các lớp học vào ComboBox
+            ClassList.Items.Add("Tất cả"); // Tùy chọn để hiển thị tất cả học sinh
 
+            //Lấy tên lớp từ 
+            var ad = new MainAdmin();
+            // Lấy danh sách lớp từ hàm GetClass
+            var classList = ad.AdminManagementGetClass();
+
+            List<ClassStudent> ListClassTam = new List<ClassStudent>();
+            // Thêm tên lớp vào ComboBox
+            foreach (var classStudent in classList)
+            {
+                // Kiểm tra xem classStudent.Class có null không trước khi thêm vào ComboBox
+                if (!string.IsNullOrEmpty(classStudent.Class))
+                {
+                    // Kiểm tra xem tên lớp đã tồn tại trong ListClassTam hay chưa
+                    if (!ListClassTam.Any(cs => cs.Class == classStudent.Class))
+                    {
+                        ListClassTam.Add(classStudent);
+                        ClassList.Items.Add(classStudent.Class);
+                    }
+                }
+            }
+
+
+            // Đăng ký sự kiện SelectedIndexChanged để xử lý khi người dùng chọn lớp
+            ClassList.SelectedIndexChanged += new EventHandler(ClassList_SelectedIndexChanged);
+
+            // Đặt mặc định hiển thị tất cả
+            ClassList.SelectedIndex = 0;
+        }
+        //Thay đổi khi chọn lớp
+        private void ClassList_SelectedIndexChanged(object? sender, EventArgs e)
+        {
+            if (ClassList?.SelectedItem != null)
+            {
+                // Lọc danh sách học sinh dựa trên lớp học được chọn
+                var selectedClass = ClassList.SelectedItem.ToString();
+
+                if (selectedClass == "Tất cả")
+                {
+                    // Hiển thị toàn bộ danh sách
+                    TableStudents.DataSource = StudentsList;
+                }
+                else
+                {
+                    // Lọc danh sách theo lớp được chọn
+                    var filteredList = StudentsList
+                        .Where(student => student.Class == selectedClass)
+                        .ToList();
+
+                    TableStudents.DataSource = null;
+                    for (int i = 0; i < filteredList.Count; i++)
+                    {
+                        filteredList[i].STT = i + 1;
+                    }
+                    TableStudents.DataSource = filteredList;
+                }
+            }
+        }
+        //
         //thêm dữ liệu học sinh mới
         private void AddStudent(object? sender, EventArgs e)
         {
-            var adminService = new MainAdmin();
             Student student = new Student();
-            if (int.TryParse(IDStudentAdd.Text, out int id))
+            if (int.TryParse(IDStudentAdd.Text, out int id))//kiểm tra có thể chuyển sang số hay k
             {
                 student.ID = id; // Gán giá trị vào student.ID nếu thành công
             }
@@ -102,12 +167,14 @@ namespace AdminManagement.WebApplication
             student.Parents = ParentsStudentAdd.Text;
             student.ParentEmail = ParentEmailStudentAdd.Text;
             // Gọi phương thức AddStudent để thêm học sinh vào cơ sở dữ liệu
+            var adminService = new MainAdmin();
             try
             {
                 adminService.AdminAddStudent(student);
                 // Thêm học sinh vào cơ sở dữ liệu
                 MessageBox.Show("Đã thêm thành công.");
                 LoadStudentList(); // Load lại danh sách
+                InitializeClassList();
                 IDStudentAdd.Clear();
                 NameStudentAdd.Clear();
                 ClassStudentAdd.Clear();
@@ -116,7 +183,7 @@ namespace AdminManagement.WebApplication
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi thêm: " + ex.Message);  // Thông báo lỗi nếu có
+                MessageBox.Show("Lỗi AddStudent: " + ex.Message);  // Thông báo lỗi nếu có
             }
         }
         //Đưa dữ liệu đi để xóa hoc sinh khỏi danh sách
@@ -125,23 +192,27 @@ namespace AdminManagement.WebApplication
             var adminService = new MainAdmin();
             if (int.TryParse(Delete.Text, out int studentId))  // Chuyển chuỗi thành int và kiểm tra
             {
-                if (adminService.AdminCheckStudent(studentId))
+                try
                 {
-                    adminService.AdminDeleteStudent(studentId);
-                    Delete.Clear();
-                    MessageBox.Show("Đã xóa.");
-                    LoadStudentList();
+                    if (adminService.AdminCheckStudent(studentId))
+                    {
+                        adminService.AdminDeleteStudent(studentId);
+                        Delete.Clear();
+                        MessageBox.Show("Đã xóa.");
+                        LoadStudentList();
+                        InitializeClassList();
+                    }
+                    else
+                    {
+                        MessageBox.Show("ID học sinh không tồn tại.");
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("ID học sinh không tồn tại.");
-                }
+                catch (Exception ex) { MessageBox.Show("Lỗi RemoveStudentFromList " + ex.Message); };
             }
             else
             {
                 MessageBox.Show("Vui lòng nhập ID hợp lệ.");
             }
-
         }
         //Cập nhật thông tin
         private void StudentEdit_Click(object? sender, EventArgs e)
