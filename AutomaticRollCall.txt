@@ -1,0 +1,1 @@
+hoạt động trên Visual Studio 2022 và cần cài đặt thêm các thư viện khác hổ trợ
