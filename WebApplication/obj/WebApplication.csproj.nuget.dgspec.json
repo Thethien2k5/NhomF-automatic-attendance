@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\CNPM\\test\\WebApplication\\WebApplication.csproj": {}
+    "E:\\CNPM\\Admin\\WebApplication\\WebApplication.csproj": {}
   },
   "projects": {
-    "E:\\CNPM\\test\\DTO\\DTO.csproj": {
+    "E:\\CNPM\\Admin\\DTO\\DTO.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\CNPM\\test\\DTO\\DTO.csproj",
+        "projectUniqueName": "E:\\CNPM\\Admin\\DTO\\DTO.csproj",
         "projectName": "DTO",
-        "projectPath": "E:\\CNPM\\test\\DTO\\DTO.csproj",
+        "projectPath": "E:\\CNPM\\Admin\\DTO\\DTO.csproj",
         "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-        "outputPath": "E:\\CNPM\\test\\DTO\\obj\\",
+        "outputPath": "E:\\CNPM\\Admin\\DTO\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -62,14 +62,14 @@
         }
       }
     },
-    "E:\\CNPM\\test\\Repository\\Repository.csproj": {
+    "E:\\CNPM\\Admin\\Repository\\Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\CNPM\\test\\Repository\\Repository.csproj",
+        "projectUniqueName": "E:\\CNPM\\Admin\\Repository\\Repository.csproj",
         "projectName": "Repository",
-        "projectPath": "E:\\CNPM\\test\\Repository\\Repository.csproj",
+        "projectPath": "E:\\CNPM\\Admin\\Repository\\Repository.csproj",
         "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-        "outputPath": "E:\\CNPM\\test\\Repository\\obj\\",
+        "outputPath": "E:\\CNPM\\Admin\\Repository\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -84,8 +84,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\CNPM\\test\\DTO\\DTO.csproj": {
-                "projectPath": "E:\\CNPM\\test\\DTO\\DTO.csproj"
+              "E:\\CNPM\\Admin\\DTO\\DTO.csproj": {
+                "projectPath": "E:\\CNPM\\Admin\\DTO\\DTO.csproj"
               }
             }
           }
@@ -134,14 +134,14 @@
         }
       }
     },
-    "E:\\CNPM\\test\\Services\\Services.csproj": {
+    "E:\\CNPM\\Admin\\Services\\Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\CNPM\\test\\Services\\Services.csproj",
+        "projectUniqueName": "E:\\CNPM\\Admin\\Services\\Services.csproj",
         "projectName": "Services",
-        "projectPath": "E:\\CNPM\\test\\Services\\Services.csproj",
+        "projectPath": "E:\\CNPM\\Admin\\Services\\Services.csproj",
         "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-        "outputPath": "E:\\CNPM\\test\\Services\\obj\\",
+        "outputPath": "E:\\CNPM\\Admin\\Services\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -156,11 +156,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\CNPM\\test\\DTO\\DTO.csproj": {
-                "projectPath": "E:\\CNPM\\test\\DTO\\DTO.csproj"
+              "E:\\CNPM\\Admin\\DTO\\DTO.csproj": {
+                "projectPath": "E:\\CNPM\\Admin\\DTO\\DTO.csproj"
               },
-              "E:\\CNPM\\test\\Repository\\Repository.csproj": {
-                "projectPath": "E:\\CNPM\\test\\Repository\\Repository.csproj"
+              "E:\\CNPM\\Admin\\Repository\\Repository.csproj": {
+                "projectPath": "E:\\CNPM\\Admin\\Repository\\Repository.csproj"
               }
             }
           }
@@ -179,16 +179,6 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "dependencies": {
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[9.0.0, )"
-            },
-            "MySql.Data": {
-              "target": "Package",
-              "version": "[9.1.0, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -209,14 +199,14 @@
         }
       }
     },
-    "E:\\CNPM\\test\\WebApplication\\WebApplication.csproj": {
+    "E:\\CNPM\\Admin\\WebApplication\\WebApplication.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\CNPM\\test\\WebApplication\\WebApplication.csproj",
+        "projectUniqueName": "E:\\CNPM\\Admin\\WebApplication\\WebApplication.csproj",
         "projectName": "WebApplication",
-        "projectPath": "E:\\CNPM\\test\\WebApplication\\WebApplication.csproj",
+        "projectPath": "E:\\CNPM\\Admin\\WebApplication\\WebApplication.csproj",
         "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-        "outputPath": "E:\\CNPM\\test\\WebApplication\\obj\\",
+        "outputPath": "E:\\CNPM\\Admin\\WebApplication\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -231,11 +221,11 @@
           "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
             "projectReferences": {
-              "E:\\CNPM\\test\\DTO\\DTO.csproj": {
-                "projectPath": "E:\\CNPM\\test\\DTO\\DTO.csproj"
+              "E:\\CNPM\\Admin\\DTO\\DTO.csproj": {
+                "projectPath": "E:\\CNPM\\Admin\\DTO\\DTO.csproj"
               },
-              "E:\\CNPM\\test\\Services\\Services.csproj": {
-                "projectPath": "E:\\CNPM\\test\\Services\\Services.csproj"
+              "E:\\CNPM\\Admin\\Services\\Services.csproj": {
+                "projectPath": "E:\\CNPM\\Admin\\Services\\Services.csproj"
               }
             }
           }

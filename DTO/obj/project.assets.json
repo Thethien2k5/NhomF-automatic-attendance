@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\CNPM\\test\\DTO\\DTO.csproj",
+      "projectUniqueName": "E:\\CNPM\\Admin\\DTO\\DTO.csproj",
       "projectName": "DTO",
-      "projectPath": "E:\\CNPM\\test\\DTO\\DTO.csproj",
+      "projectPath": "E:\\CNPM\\Admin\\DTO\\DTO.csproj",
       "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-      "outputPath": "E:\\CNPM\\test\\DTO\\obj\\",
+      "outputPath": "E:\\CNPM\\Admin\\DTO\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config"

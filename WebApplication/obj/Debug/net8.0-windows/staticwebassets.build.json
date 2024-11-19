@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "5URBUSsKK+YBMod3lGe2qeQN6wb5g8TEQWTHMp+RT1k=",
+  "Hash": "+eRgEQDIfYERLBrcJyrQFFtBEIFSUsz4U1uNSbkH3Zw=",
   "Source": "WebApplication",
   "BasePath": "_content/WebApplication",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "WebApplication\\wwwroot",
       "Source": "WebApplication",
-      "ContentRoot": "E:\\CNPM\\test\\WebApplication\\wwwroot\\",
+      "ContentRoot": "E:\\CNPM\\Admin\\WebApplication\\wwwroot\\",
       "BasePath": "_content/WebApplication",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "E:\\CNPM\\test\\WebApplication\\obj\\Debug\\net8.0-windows\\scopedcss\\bundle\\WebApplication.styles.css",
+      "Identity": "E:\\CNPM\\Admin\\WebApplication\\obj\\Debug\\net8.0-windows\\scopedcss\\bundle\\WebApplication.styles.css",
       "SourceId": "WebApplication",
       "SourceType": "Computed",
-      "ContentRoot": "E:\\CNPM\\test\\WebApplication\\obj\\Debug\\net8.0-windows\\scopedcss\\bundle\\",
+      "ContentRoot": "E:\\CNPM\\Admin\\WebApplication\\obj\\Debug\\net8.0-windows\\scopedcss\\bundle\\",
       "BasePath": "_content/WebApplication",
       "RelativePath": "WebApplication.styles.css",
       "AssetKind": "All",
@@ -33,13 +33,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "E:\\CNPM\\test\\WebApplication\\obj\\Debug\\net8.0-windows\\scopedcss\\bundle\\WebApplication.styles.css"
+      "OriginalItemSpec": "E:\\CNPM\\Admin\\WebApplication\\obj\\Debug\\net8.0-windows\\scopedcss\\bundle\\WebApplication.styles.css"
     },
     {
-      "Identity": "E:\\CNPM\\test\\WebApplication\\obj\\Debug\\net8.0-windows\\scopedcss\\projectbundle\\WebApplication.bundle.scp.css",
+      "Identity": "E:\\CNPM\\Admin\\WebApplication\\obj\\Debug\\net8.0-windows\\scopedcss\\projectbundle\\WebApplication.bundle.scp.css",
       "SourceId": "WebApplication",
       "SourceType": "Computed",
-      "ContentRoot": "E:\\CNPM\\test\\WebApplication\\obj\\Debug\\net8.0-windows\\scopedcss\\projectbundle\\",
+      "ContentRoot": "E:\\CNPM\\Admin\\WebApplication\\obj\\Debug\\net8.0-windows\\scopedcss\\projectbundle\\",
       "BasePath": "_content/WebApplication",
       "RelativePath": "WebApplication.bundle.scp.css",
       "AssetKind": "All",
@@ -52,13 +52,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "E:\\CNPM\\test\\WebApplication\\obj\\Debug\\net8.0-windows\\scopedcss\\projectbundle\\WebApplication.bundle.scp.css"
+      "OriginalItemSpec": "E:\\CNPM\\Admin\\WebApplication\\obj\\Debug\\net8.0-windows\\scopedcss\\projectbundle\\WebApplication.bundle.scp.css"
     },
     {
-      "Identity": "E:\\CNPM\\test\\WebApplication\\wwwroot\\app.css",
+      "Identity": "E:\\CNPM\\Admin\\WebApplication\\wwwroot\\app.css",
       "SourceId": "WebApplication",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\CNPM\\test\\WebApplication\\wwwroot\\",
+      "ContentRoot": "E:\\CNPM\\Admin\\WebApplication\\wwwroot\\",
       "BasePath": "_content/WebApplication",
       "RelativePath": "app.css",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\app.css"
     },
     {
-      "Identity": "E:\\CNPM\\test\\WebApplication\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Identity": "E:\\CNPM\\Admin\\WebApplication\\wwwroot\\bootstrap\\bootstrap.min.css",
       "SourceId": "WebApplication",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\CNPM\\test\\WebApplication\\wwwroot\\",
+      "ContentRoot": "E:\\CNPM\\Admin\\WebApplication\\wwwroot\\",
       "BasePath": "_content/WebApplication",
       "RelativePath": "bootstrap/bootstrap.min.css",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "E:\\CNPM\\test\\WebApplication\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "E:\\CNPM\\Admin\\WebApplication\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "WebApplication",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\CNPM\\test\\WebApplication\\wwwroot\\",
+      "ContentRoot": "E:\\CNPM\\Admin\\WebApplication\\wwwroot\\",
       "BasePath": "_content/WebApplication",
       "RelativePath": "bootstrap/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "E:\\CNPM\\test\\WebApplication\\wwwroot\\favicon.png",
+      "Identity": "E:\\CNPM\\Admin\\WebApplication\\wwwroot\\favicon.png",
       "SourceId": "WebApplication",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\CNPM\\test\\WebApplication\\wwwroot\\",
+      "ContentRoot": "E:\\CNPM\\Admin\\WebApplication\\wwwroot\\",
       "BasePath": "_content/WebApplication",
       "RelativePath": "favicon.png",
       "AssetKind": "All",

@@ -713,8 +713,6 @@
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "DTO": "1.0.0",
-          "Microsoft.EntityFrameworkCore": "9.0.0",
-          "MySql.Data": "9.1.0",
           "Repository": "1.0.0"
         },
         "compile": {
@@ -2231,11 +2229,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\CNPM\\test\\WebApplication\\WebApplication.csproj",
+      "projectUniqueName": "E:\\CNPM\\Admin\\WebApplication\\WebApplication.csproj",
       "projectName": "WebApplication",
-      "projectPath": "E:\\CNPM\\test\\WebApplication\\WebApplication.csproj",
+      "projectPath": "E:\\CNPM\\Admin\\WebApplication\\WebApplication.csproj",
       "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-      "outputPath": "E:\\CNPM\\test\\WebApplication\\obj\\",
+      "outputPath": "E:\\CNPM\\Admin\\WebApplication\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -2250,11 +2248,11 @@
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
           "projectReferences": {
-            "E:\\CNPM\\test\\DTO\\DTO.csproj": {
-              "projectPath": "E:\\CNPM\\test\\DTO\\DTO.csproj"
+            "E:\\CNPM\\Admin\\DTO\\DTO.csproj": {
+              "projectPath": "E:\\CNPM\\Admin\\DTO\\DTO.csproj"
             },
-            "E:\\CNPM\\test\\Services\\Services.csproj": {
-              "projectPath": "E:\\CNPM\\test\\Services\\Services.csproj"
+            "E:\\CNPM\\Admin\\Services\\Services.csproj": {
+              "projectPath": "E:\\CNPM\\Admin\\Services\\Services.csproj"
             }
           }
         }

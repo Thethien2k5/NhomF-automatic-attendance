@@ -1653,11 +1653,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\CNPM\\test\\Repository\\Repository.csproj",
+      "projectUniqueName": "E:\\CNPM\\Admin\\Repository\\Repository.csproj",
       "projectName": "Repository",
-      "projectPath": "E:\\CNPM\\test\\Repository\\Repository.csproj",
+      "projectPath": "E:\\CNPM\\Admin\\Repository\\Repository.csproj",
       "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-      "outputPath": "E:\\CNPM\\test\\Repository\\obj\\",
+      "outputPath": "E:\\CNPM\\Admin\\Repository\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -1672,8 +1672,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "E:\\CNPM\\test\\DTO\\DTO.csproj": {
-              "projectPath": "E:\\CNPM\\test\\DTO\\DTO.csproj"
+            "E:\\CNPM\\Admin\\DTO\\DTO.csproj": {
+              "projectPath": "E:\\CNPM\\Admin\\DTO\\DTO.csproj"
             }
           }
         }

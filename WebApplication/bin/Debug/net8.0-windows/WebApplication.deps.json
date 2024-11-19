@@ -351,8 +351,6 @@
       "Services/1.0.0": {
         "dependencies": {
           "DTO": "1.0.0",
-          "Microsoft.EntityFrameworkCore": "9.0.0",
-          "MySql.Data": "9.1.0",
           "Repository": "1.0.0"
         },
         "runtime": {

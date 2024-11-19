@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Asn1.Mozilla;
+﻿using MySql.Data.MySqlClient;
 using DTO;
 
 namespace AdminManagement.Repository
@@ -33,6 +29,7 @@ namespace AdminManagement.Repository
                 {
                     while (reader.Read())//Đọc và đưa thông tin học sinh vào danh sách
                     {
+                        
                         var student = new Student
                         {
                             ID = reader.GetInt32("IDStudent"),

@@ -1,6 +1,3 @@
-using System;
-using System.Drawing;
-using System.Windows.Forms;
 using AdminManagement.Services;
 using DTO;
 
@@ -79,6 +76,31 @@ namespace AdminManagement.WebApplication
             }
             // Xóa dữ liệu hiện có trên DataGridView
             TableStudents.DataSource = null;
+            if (ClassList?.SelectedItem != null)
+            {
+                // Lọc danh sách học sinh dựa trên lớp học được chọn
+                var selectedClass = ClassList.SelectedItem.ToString();
+
+                if (selectedClass == "Tất cả")
+                {
+                    // Hiển thị toàn bộ danh sách
+                    TableStudents.DataSource = StudentsList;
+                }
+                else
+                {
+                    // Lọc danh sách theo lớp được chọn
+                    var filteredList = StudentsList
+                        .Where(student => student.Class == selectedClass)
+                        .ToList();
+
+                    TableStudents.DataSource = null;
+                    for (int i = 0; i < filteredList.Count; i++)
+                    {
+                        filteredList[i].STT = i + 1;
+                    }
+                    TableStudents.DataSource = filteredList;
+                }
+            }
             // Gán danh sách học sinh vào DataSource của DataGridView
             TableStudents.DataSource = StudentsList;
             // Cài đặt chế độ tự động điều chỉnh độ rộng cột
@@ -153,27 +175,28 @@ namespace AdminManagement.WebApplication
         private void AddStudent(object? sender, EventArgs e)
         {
             Student student = new Student();
-            if (int.TryParse(IDStudentAdd.Text, out int id))//kiểm tra có thể chuyển sang số hay k
-            {
-                student.ID = id; // Gán giá trị vào student.ID nếu thành công
-            }
-            else
+
+            if (!int.TryParse(IDStudentAdd.Text, out int id))
             {
                 MessageBox.Show("ID không hợp lệ.");
                 return;
             }
-            student.NameStudent = NameStudentAdd.Text;
-            student.Class = ClassStudentAdd.Text;
-            student.Parents = ParentsStudentAdd.Text;
-            student.ParentEmail = ParentEmailStudentAdd.Text;
-            // Gọi phương thức AddStudent để thêm học sinh vào cơ sở dữ liệu
+
+            student.ID = id;
+            student.NameStudent = NameStudentAdd.Text.Trim();
+            student.Class = ClassStudentAdd.Text.Trim();
+            student.Parents = ParentsStudentAdd.Text.Trim();
+            student.ParentEmail = ParentEmailStudentAdd.Text.Trim();
+
             var adminService = new MainAdmin();
+
             try
             {
-                adminService.AdminAddStudent(student);
-                // Thêm học sinh vào cơ sở dữ liệu
+                adminService.AdminAddStudent(student); // Gọi hàm AdminAddStudent để thêm học sinh
                 MessageBox.Show("Đã thêm thành công.");
-                LoadStudentList(); // Load lại danh sách
+
+                // Load lại danh sách và xóa dữ liệu trên giao diện
+                LoadStudentList();
                 InitializeClassList();
                 IDStudentAdd.Clear();
                 NameStudentAdd.Clear();
@@ -183,9 +206,10 @@ namespace AdminManagement.WebApplication
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi AddStudent: " + ex.Message);  // Thông báo lỗi nếu có
+                MessageBox.Show("Lỗi AddStudent: " + ex.Message); // Hiển thị lỗi kiểm tra hoặc cơ sở dữ liệu
             }
         }
+
         //Đưa dữ liệu đi để xóa hoc sinh khỏi danh sách
         private void RemoveStudentFromList(object? sender, EventArgs e)
         {
@@ -228,6 +252,12 @@ namespace AdminManagement.WebApplication
             StudentEditText.Visible = true;
             confirm.Visible = true;
 
+        }
+        //Xacs nhan
+        private void confirm_Click(object? sender, EventArgs e)
+        {
+            LoadStudentList();
+            InitializeClassList();
         }
         //
         //Quản lý học sinh
@@ -410,6 +440,8 @@ namespace AdminManagement.WebApplication
             ClassList.Name = "ClassList";
             ClassList.Width = (int)(ClientSize.Width * 0.7);
             ClassList.Visible = false;
+            ClassList.DropDownStyle = ComboBoxStyle.DropDownList;
+
             //Nút bật bản quản lí học sinh
             StudentManagement.Location = new Point(200, 50);
             StudentManagement.Name = "StudentManagement";
@@ -523,6 +555,7 @@ namespace AdminManagement.WebApplication
             confirm.Size = new Size(90, 30);
             confirm.Text = "Xác nhận";
             confirm.Visible = false;
+            confirm.Click += new EventHandler(confirm_Click);
             // Cài đặt form chính
             ClientSize = new Size(800, 600);
             WindowState = FormWindowState.Maximized;
