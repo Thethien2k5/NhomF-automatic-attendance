@@ -1,5 +1,0 @@
-E:\CNPM\test\Repository\obj\Debug\net8.0-windows\Repository.csproj.AssemblyReference.cache
-E:\CNPM\test\Repository\obj\Debug\net8.0-windows\Repository.GeneratedMSBuildEditorConfig.editorconfig
-E:\CNPM\test\Repository\obj\Debug\net8.0-windows\Repository.AssemblyInfoInputs.cache
-E:\CNPM\test\Repository\obj\Debug\net8.0-windows\Repository.AssemblyInfo.cs
-E:\CNPM\test\Repository\obj\Debug\net8.0-windows\Repository.csproj.CoreCompileInputs.cache
